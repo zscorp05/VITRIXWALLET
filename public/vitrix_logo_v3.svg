@@ -1,0 +1,32 @@
+<svg width="100%" viewBox="0 0 690 430" role="img" xmlns="http://www.w3.org/2000/svg" style="">
+<title style="fill:rgb(0, 0, 0);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, &quot;system-ui&quot;, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto">Vitrix</title>
+<defs>
+  <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" style="stop-color:#E8C96A"/>
+    <stop offset="50%" style="stop-color:#C9A84C"/>
+    <stop offset="100%" style="stop-color:#A67C00"/>
+  </linearGradient>
+</defs>
+<!-- Big decorative V background (large, behind text) -->
+<!-- Left outer arm -->
+<polygon points="230,80 295,80 340,160 385,80 450,80 340,290 230,80" fill="url(#g)" style="stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, &quot;system-ui&quot;, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+<!-- Inner cutout -->
+<polygon points="255,80 286,80 340,175 394,80 425,80 340,265" fill="#080808" style="fill:rgb(8, 8, 8);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, &quot;system-ui&quot;, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+<!-- Top serif crossbars -->
+<rect x="224" y="80" width="72" height="16" rx="2" fill="url(#g)" style="stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, &quot;system-ui&quot;, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+<rect x="384" y="80" width="72" height="16" rx="2" fill="url(#g)" style="stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, &quot;system-ui&quot;, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+<!-- Bottom arrow point -->
+<polygon points="328,268 352,268 340,294" fill="url(#g)" style="stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, &quot;system-ui&quot;, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+<!-- VITRIX text overlapping the V, centered -->
+<text x="340" y="248" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="88" font-weight="700" fill="url(#g)" letter-spacing="8" style="stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:Georgia, &quot;Times New Roman&quot;, serif;font-size:88px;font-weight:700;text-anchor:middle;dominant-baseline:auto">VITRIX</text>
+
+<!-- Cover middle of V behind text with page bg color to create overlap effect -->
+<rect x="168" y="168" width="344" height="88" fill="#080808" style="fill:rgb(8, 8, 8);stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:&quot;Anthropic Sans&quot;, -apple-system, &quot;system-ui&quot;, &quot;Segoe UI&quot;, sans-serif;font-size:16px;font-weight:400;text-anchor:start;dominant-baseline:auto"/>
+
+<!-- Redraw text on top -->
+<text x="340" y="248" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="88" font-weight="700" fill="url(#g)" letter-spacing="8" style="stroke:none;color:rgb(255, 255, 255);stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;opacity:1;font-family:Georgia, &quot;Times New Roman&quot;, serif;font-size:88px;font-weight:700;text-anchor:middle;dominant-baseline:auto">VITRIX</text>
+
+</svg>

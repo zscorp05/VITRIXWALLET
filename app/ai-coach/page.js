@@ -39,13 +39,23 @@ export default function AICoachPage() {
       const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: newMessages.map(m => ({ role: m.role, content: m.content })) })
+        body: JSON.stringify({
+          systemPrompt,
+          messages: newMessages.map(m => ({ role: m.role, content: m.content })),
+        }),
       })
       const data = await res.json()
-      const reply = data.choices?.[0]?.message?.content || data.content?.[0]?.text || "I'm having trouble connecting right now."
+      if (!res.ok) {
+        throw new Error(data.error || `Request failed (${res.status})`)
+      }
+      const reply =
+        data.choices?.[0]?.message?.content ||
+        data.content?.[0]?.text ||
+        "I couldn't generate a reply. Please try again."
       setMessages([...newMessages, { role: 'assistant', content: reply }])
-    } catch {
-      setMessages([...newMessages, { role: 'assistant', content: 'Connection issue — please try again.' }])
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Connection issue — please try again.'
+      setMessages([...newMessages, { role: 'assistant', content: message }])
     }
     setLoading(false)
   }
@@ -55,7 +65,7 @@ export default function AICoachPage() {
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 260px', gap: 20, height: 'calc(100vh - 160px)' }}>
         <div className="card" style={{ display: 'flex', flexDirection: 'column', padding: 0, overflow: 'hidden' }}>
           <div style={{ padding: '18px 24px', borderBottom: '1px solid var(--border)', display: 'flex', gap: 12, alignItems: 'center' }}>
-            <div style={{ width: 38, height: 38, borderRadius: 10, background: 'linear-gradient(135deg, #C9A84C, #A67C00)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16 }}>◆</div>
+            <div style={{ width: 38, height: 38, borderRadius: 10, background: 'var(--gradient-gold)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 16, color: 'var(--bg)' }}>◆</div>
             <div>
               <div style={{ fontFamily: 'var(--font-display)', fontWeight: 600, fontSize: 16 }}>Vitrix AI Advisor</div>
               <div style={{ fontSize: 11, color: 'var(--success)', letterSpacing: '0.04em' }}>● Online</div>
@@ -66,13 +76,13 @@ export default function AICoachPage() {
             {messages.map((m, i) => (
               <div key={i} style={{ display: 'flex', gap: 10, flexDirection: m.role === 'user' ? 'row-reverse' : 'row', alignItems: 'flex-end' }}>
                 {m.role === 'assistant' && (
-                  <div style={{ width: 26, height: 26, borderRadius: 7, flexShrink: 0, background: 'linear-gradient(135deg, #C9A84C, #A67C00)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12 }}>◆</div>
+                  <div style={{ width: 26, height: 26, borderRadius: 7, flexShrink: 0, background: 'var(--gradient-gold)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, color: 'var(--bg)' }}>◆</div>
                 )}
                 <div style={{
                   maxWidth: '75%', padding: '12px 16px',
                   borderRadius: m.role === 'user' ? '16px 16px 4px 16px' : '16px 16px 16px 4px',
-                  background: m.role === 'user' ? 'linear-gradient(135deg, #C9A84C, #A67C00)' : 'var(--bg3)',
-                  color: m.role === 'user' ? '#080808' : 'var(--text)',
+                  background: m.role === 'user' ? 'var(--gradient-gold)' : 'var(--bg3)',
+                  color: m.role === 'user' ? 'var(--bg)' : 'var(--text)',
                   fontSize: 14, lineHeight: 1.65, fontWeight: m.role === 'user' ? 500 : 400,
                 }}>
                   {m.content}
@@ -81,7 +91,7 @@ export default function AICoachPage() {
             ))}
             {loading && (
               <div style={{ display: 'flex', gap: 10, alignItems: 'flex-end' }}>
-                <div style={{ width: 26, height: 26, borderRadius: 7, background: 'linear-gradient(135deg, #C9A84C, #A67C00)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12 }}>◆</div>
+                <div style={{ width: 26, height: 26, borderRadius: 7, background: 'var(--gradient-gold)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, color: 'var(--bg)' }}>◆</div>
                 <div style={{ padding: '12px 16px', background: 'var(--bg3)', borderRadius: '16px 16px 16px 4px', display: 'flex', gap: 4 }}>
                   {[0,1,2].map(i => <div key={i} style={{ width: 5, height: 5, borderRadius: '50%', background: 'var(--accent)', animation: 'pulse 1.2s ease-in-out infinite', animationDelay: `${i*0.2}s` }} />)}
                 </div>

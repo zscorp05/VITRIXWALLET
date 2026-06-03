@@ -1,38 +1,62 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap');
 
+/* Palette matched to vitrix_logo_v3.svg */
 :root {
+  --gold-light: #E8C96A;
+  --gold:       #C9A84C;
+  --gold-dark:  #A67C00;
+  --gold-muted: #8A7340;
+
   --bg:       #080808;
-  --bg2:      #111111;
-  --bg3:      #1A1A1A;
-  --card:     #131313;
-  --border:   rgba(201,168,76,0.15);
-  --border2:  rgba(201,168,76,0.30);
+  --bg2:      #080808;
+  --bg3:      #101010;
+  --card:     #0c0c0c;
+  --border:   rgba(201, 168, 76, 0.14);
+  --border2:  rgba(232, 201, 106, 0.28);
 
-  --accent:   #C9A84C;
-  --accent2:  #A67C00;
-  --accent3:  #E8C96A;
-  --gold-glow: rgba(201,168,76,0.18);
+  --accent:   var(--gold);
+  --accent2:  var(--gold-dark);
+  --accent3:  var(--gold-light);
+  --gold-glow: rgba(201, 168, 76, 0.16);
+  --gradient-gold: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-dark) 100%);
 
-  --text:     #F0EDE8;
-  --text2:    #9A9590;
-  --text3:    #5A5550;
+  --text:     #F2EBE0;
+  --text2:    #B8A88A;
+  --text3:    #6B6355;
 
-  --success:  #4CAF7C;
-  --danger:   #C94C4C;
-  --warning:  #C9894C;
+  /* Semantic tones — warm gold family, no teal */
+  --success:  var(--gold-light);
+  --warning:  #D4A84A;
+  --danger:   #B86B5A;
 
-  --font-display: 'Cormorant Garamond', serif;
+  --font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
   --font-body:    'DM Sans', sans-serif;
 
   --radius:   14px;
-  --shadow:   0 4px 24px rgba(0,0,0,0.6);
-  --shadow-gold: 0 0 32px rgba(201,168,76,0.12);
+  --shadow:   0 4px 24px rgba(0, 0, 0, 0.65);
+  --shadow-gold: 0 0 32px rgba(201, 168, 76, 0.14);
+}
+
+[data-theme="light"] {
+  --bg:       #F5F1E8;
+  --bg2:      #FFFFFF;
+  --bg3:      #EDE6D6;
+  --card:     #FFFFFF;
+  --border:   rgba(166, 124, 0, 0.18);
+  --border2:  rgba(166, 124, 0, 0.32);
+  --text:     #1A1612;
+  --text2:    #5C5348;
+  --text3:    #8A8070;
+  --gold-glow: rgba(201, 168, 76, 0.12);
+  --shadow:   0 4px 24px rgba(26, 22, 18, 0.08);
+  --shadow-gold: 0 0 24px rgba(201, 168, 76, 0.1);
 }
 
 * { box-sizing: border-box; }
 
 html, body {
-  margin: 0; padding: 0;
+  margin: 0;
+  padding: 0;
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-body);
@@ -40,8 +64,8 @@ html, body {
 }
 
 ::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--bg2); }
-::-webkit-scrollbar-thumb { background: var(--accent2); border-radius: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 4px; }
 
 .card {
   background: var(--card);
@@ -52,7 +76,7 @@ html, body {
 }
 
 .card-gold {
-  background: linear-gradient(135deg, rgba(201,168,76,0.08), rgba(201,168,76,0.03));
+  background: linear-gradient(135deg, rgba(232, 201, 106, 0.07), rgba(166, 124, 0, 0.04));
   border: 1px solid var(--border2);
   border-radius: var(--radius);
   padding: 24px;
@@ -77,14 +101,14 @@ html, body {
   font-family: var(--font-display);
   font-size: 28px;
   font-weight: 700;
-  color: var(--accent);
+  color: var(--gold);
   line-height: 1;
   margin-bottom: 4px;
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #C9A84C, #A67C00);
-  color: #080808;
+  background: var(--gradient-gold);
+  color: var(--bg);
   border: none;
   border-radius: 10px;
   padding: 12px 22px;
@@ -95,11 +119,11 @@ html, body {
   letter-spacing: 0.03em;
   transition: opacity 0.2s, transform 0.15s;
 }
-.btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+.btn-primary:hover { opacity: 0.9; transform: translateY(-1px); }
 
 .btn-ghost {
   background: transparent;
-  color: var(--accent);
+  color: var(--gold);
   border: 1px solid var(--border2);
   border-radius: 10px;
   padding: 10px 18px;
@@ -109,7 +133,15 @@ html, body {
   cursor: pointer;
   transition: background 0.2s, border-color 0.2s;
 }
-.btn-ghost:hover { background: var(--gold-glow); border-color: var(--accent); }
+.btn-ghost:hover { background: var(--gold-glow); border-color: var(--gold); }
+
+.logo-frame {
+  background: var(--bg);
+  border-radius: 10px;
+  padding: 10px 14px;
+  display: inline-block;
+  border: 1px solid var(--border);
+}
 
 input, select, textarea {
   width: 100%;
@@ -121,11 +153,11 @@ input, select, textarea {
   font-size: 14px;
   font-family: var(--font-body);
   outline: none;
-  transition: border-color 0.2s;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 input:focus, select:focus, textarea:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px rgba(201,168,76,0.1);
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.12);
 }
 input::placeholder, textarea::placeholder { color: var(--text3); }
 select option { background: var(--bg3); }
@@ -139,7 +171,7 @@ select option { background: var(--bg3); }
 .progress-fill {
   height: 100%;
   border-radius: 4px;
-  background: linear-gradient(90deg, var(--accent2), var(--accent));
+  background: var(--gradient-gold);
   transition: width 0.6s ease;
 }
 
@@ -152,11 +184,11 @@ select option { background: var(--bg3); }
   font-weight: 600;
   letter-spacing: 0.04em;
 }
-.badge-gold   { background: rgba(201,168,76,0.15); color: var(--accent); }
-.badge-purple { background: rgba(201,168,76,0.12); color: var(--accent3); }
-.badge-teal   { background: rgba(76,175,124,0.15); color: var(--success); }
-.badge-red    { background: rgba(201,76,76,0.15);  color: var(--danger); }
-.badge-amber  { background: rgba(201,137,76,0.15); color: var(--warning); }
+.badge-gold   { background: rgba(201, 168, 76, 0.18); color: var(--gold-light); }
+.badge-purple { background: rgba(166, 124, 0, 0.15); color: var(--gold); }
+.badge-teal   { background: rgba(232, 201, 106, 0.12); color: var(--gold-light); }
+.badge-red    { background: rgba(184, 107, 90, 0.18); color: #E8A090; }
+.badge-amber  { background: rgba(212, 168, 74, 0.15); color: var(--warning); }
 
 @keyframes pulse  { 0%,100%{opacity:0.3} 50%{opacity:1} }
 @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
