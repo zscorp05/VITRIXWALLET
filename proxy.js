@@ -24,9 +24,10 @@ export async function proxy(req) {
   const { data: { session } } = await supabase.auth.getSession()
   const isProtected = protectedRoutes.some(route => req.nextUrl.pathname.startsWith(route))
 
-  if (isProtected && !session) {
-    return NextResponse.redirect(new URL('/login', req.url))
-  }
+  const demoCookie = req.cookies.get('vitrix_demo')
+if (isProtected && !session && !demoCookie) {
+  return NextResponse.redirect(new URL('/login', req.url))
+}
 
   return res
 }
