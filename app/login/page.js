@@ -1,12 +1,21 @@
 'use client'
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import Logo from '@/components/Logo'
 import { supabase } from '@/lib/supabase'
-import { validateEmail } from '@/lib/validate'
+
+function validateEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+}
+
+function Logo() {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 10, justifyContent: 'center' }}>
+      <div style={{ width: 40, height: 40, borderRadius: 12, background: 'linear-gradient(135deg, #6C63FF, #00D4AA)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 800, fontSize: 20 }}>V</div>
+      <span style={{ color: 'white', fontWeight: 800, fontSize: 24, letterSpacing: '-0.5px' }}>VITRIX</span>
+    </div>
+  )
+}
 
 export default function LoginPage() {
-  const router = useRouter()
   const [mode, setMode] = useState('login')
   const [role, setRole] = useState('parent')
   const [form, setForm] = useState({ name: '', email: '', password: '' })
@@ -15,7 +24,7 @@ export default function LoginPage() {
 
   function enterDemo() {
     document.cookie = 'vitrix_demo=1; path=/; max-age=86400'
-    router.push('/dashboard')
+    window.location.href = '/dashboard'
   }
 
   async function handleSubmit() {
@@ -49,7 +58,6 @@ export default function LoginPage() {
           .insert({ name: `${form.name.split(' ')[0]}'s Family` })
           .select()
           .single()
-
         if (familyError) throw familyError
 
         const { error: profileError } = await supabase.from('profiles').insert({
@@ -62,7 +70,8 @@ export default function LoginPage() {
         if (profileError) throw profileError
 
         document.cookie = 'vitrix_demo=; path=/; max-age=0'
-        router.push('/onboarding')
+        window.location.href = '/onboarding'
+
       } else {
         const { error: signInError } = await supabase.auth.signInWithPassword({
           email: form.email,
@@ -70,7 +79,8 @@ export default function LoginPage() {
         })
         if (signInError) throw signInError
         document.cookie = 'vitrix_demo=; path=/; max-age=0'
-        router.push('/dashboard')
+        await new Promise(resolve => setTimeout(resolve, 500))
+        window.location.href = '/dashboard'
       }
     } catch (err) {
       setError(err.message || 'Something went wrong. Try again.')
@@ -78,30 +88,34 @@ export default function LoginPage() {
     setLoading(false)
   }
 
-  return (
-    <div style={{
-      minHeight: '100vh', background: 'var(--bg)',
-      display: 'flex', alignItems: 'center', justifyContent: 'center',
-      padding: '20px', fontFamily: 'var(--font-body)', position: 'relative',
-    }}>
-      <div style={{ position: 'fixed', inset: 0, pointerEvents: 'none', background: 'radial-gradient(ellipse 60% 50% at 50% 20%, rgba(232,201,106,0.08) 0%, transparent 70%)' }} />
+  const inp = {
+    background: '#222640',
+    border: '1px solid rgba(255,255,255,0.08)',
+    borderRadius: 10, color: 'white',
+    padding: '12px 14px', fontSize: 14,
+    fontFamily: 'Inter, sans-serif',
+    outline: 'none', width: '100%',
+    boxSizing: 'border-box'
+  }
 
-      <div style={{ width: '100%', maxWidth: 420, position: 'relative' }}>
-        <div style={{ textAlign: 'center', marginBottom: 44 }}>
-          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 16 }}>
-            <Logo width={200} />
-          </div>
-          <p style={{ color: 'var(--text3)', fontSize: 13, margin: 0, letterSpacing: '0.05em', textTransform: 'uppercase' }}>Private Family Finance</p>
+  return (
+    <div style={{ minHeight: '100vh', background: '#0F1117', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px', fontFamily: 'Inter, sans-serif' }}>
+      <div style={{ width: '100%', maxWidth: 420 }}>
+
+        <div style={{ textAlign: 'center', marginBottom: 40 }}>
+          <Logo />
+          <p style={{ color: '#555870', fontSize: 12, margin: '10px 0 0', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Private Family Finance</p>
         </div>
 
-        <div className="card" style={{ padding: '32px' }}>
-          <div style={{ display: 'flex', background: 'var(--bg3)', borderRadius: 10, padding: 3, marginBottom: 28, gap: 3 }}>
+        <div style={{ background: '#1A1D2E', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 20, padding: 32 }}>
+          <div style={{ display: 'flex', background: '#222640', borderRadius: 12, padding: 4, marginBottom: 28, gap: 4 }}>
             {['login', 'signup'].map(m => (
               <button key={m} type="button" onClick={() => setMode(m)} style={{
-                flex: 1, padding: '9px', borderRadius: 8,
-                background: mode === m ? 'var(--gradient-gold)' : 'transparent',
-                color: mode === m ? 'var(--bg)' : 'var(--text3)',
-                border: 'none', cursor: 'pointer', fontWeight: 700, fontSize: 13,
+                flex: 1, padding: '9px', borderRadius: 8, border: 'none',
+                background: mode === m ? 'linear-gradient(135deg, #6C63FF, #8B84FF)' : 'transparent',
+                color: mode === m ? 'white' : '#555870',
+                fontWeight: 700, fontSize: 13, cursor: 'pointer',
+                fontFamily: 'Inter, sans-serif'
               }}>
                 {m === 'login' ? 'Sign In' : 'Sign Up'}
               </button>
@@ -112,52 +126,68 @@ export default function LoginPage() {
             {mode === 'signup' && (
               <>
                 <div>
-                  <label className="stat-label" style={{ display: 'block', marginBottom: 7 }}>Full Name</label>
-                  <input value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} placeholder="Erik Rodriguez" />
+                  <label style={{ fontSize: 11, color: '#555870', display: 'block', marginBottom: 7, textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 500 }}>Full Name</label>
+                  <input value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} placeholder="Erik Rodriguez" style={inp} />
                 </div>
                 <div>
-                  <label className="stat-label" style={{ display: 'block', marginBottom: 10 }}>I Am A...</label>
+                  <label style={{ fontSize: 11, color: '#555870', display: 'block', marginBottom: 8, textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 500 }}>I Am A...</label>
                   <div style={{ display: 'flex', gap: 8 }}>
                     {['parent', 'individual', 'teen'].map(r => (
                       <button key={r} type="button" onClick={() => setRole(r)} style={{
-                        flex: 1, padding: '10px 6px',
-                        background: role === r ? 'var(--gold-glow)' : 'var(--bg3)',
-                        border: role === r ? '1px solid var(--accent)' : '1px solid var(--border)',
-                        borderRadius: 10, color: role === r ? 'var(--accent)' : 'var(--text3)',
-                        cursor: 'pointer', fontWeight: 600, fontSize: 11, textTransform: 'capitalize',
+                        flex: 1, padding: '10px 6px', borderRadius: 10, cursor: 'pointer',
+                        fontFamily: 'Inter, sans-serif',
+                        background: role === r ? 'rgba(108,99,255,0.15)' : '#222640',
+                        border: role === r ? '1px solid #6C63FF' : '1px solid rgba(255,255,255,0.08)',
+                        color: role === r ? '#6C63FF' : '#555870',
+                        fontWeight: 600, fontSize: 12, textTransform: 'capitalize'
                       }}>
-                        {r}
+                        {r === 'parent' ? '👨‍👩‍👧' : r === 'individual' ? '👤' : '🎓'}<br />{r}
                       </button>
                     ))}
                   </div>
                 </div>
               </>
             )}
+
             <div>
-              <label className="stat-label" style={{ display: 'block', marginBottom: 7 }}>Email</label>
-              <input type="email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} placeholder="you@example.com" />
+              <label style={{ fontSize: 11, color: '#555870', display: 'block', marginBottom: 7, textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 500 }}>Email</label>
+              <input type="email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} placeholder="you@example.com" style={inp} />
             </div>
+
             <div>
-              <label className="stat-label" style={{ display: 'block', marginBottom: 7 }}>Password</label>
-              <input type="password" value={form.password} onChange={e => setForm({ ...form, password: e.target.value })} placeholder="••••••••" />
+              <label style={{ fontSize: 11, color: '#555870', display: 'block', marginBottom: 7, textTransform: 'uppercase', letterSpacing: '0.06em', fontWeight: 500 }}>Password</label>
+              <input type="password" value={form.password} onChange={e => setForm({ ...form, password: e.target.value })} placeholder="••••••••" style={inp} />
             </div>
 
             {error && (
-              <div style={{ background: 'rgba(184,107,90,0.15)', border: '1px solid rgba(184,107,90,0.35)', borderRadius: 10, padding: '12px 14px', fontSize: 13, color: 'var(--danger)' }}>
+              <div style={{ background: 'rgba(255,107,107,0.1)', border: '1px solid rgba(255,107,107,0.3)', borderRadius: 10, padding: '12px 14px', fontSize: 13, color: '#FF6B6B' }}>
                 {error}
               </div>
             )}
 
-            <button type="button" className="btn-primary" onClick={handleSubmit} style={{ marginTop: 8, padding: '13px' }} disabled={loading}>
+            <button type="button" onClick={handleSubmit} disabled={loading} style={{
+              background: 'linear-gradient(135deg, #6C63FF, #8B84FF)',
+              color: 'white', border: 'none', borderRadius: 12,
+              padding: '13px', fontSize: 15, fontWeight: 700,
+              cursor: loading ? 'not-allowed' : 'pointer',
+              fontFamily: 'Inter, sans-serif', marginTop: 8,
+              opacity: loading ? 0.7 : 1, width: '100%'
+            }}>
               {loading ? 'Please wait...' : mode === 'login' ? 'Sign in to Vitrix' : 'Create account'}
             </button>
           </div>
 
           <div style={{ textAlign: 'center', marginTop: 20 }}>
-            <button type="button" onClick={enterDemo} style={{ background: 'none', border: 'none', color: 'var(--text3)', fontSize: 12, cursor: 'pointer' }}>
+            <button type="button" onClick={enterDemo} style={{ background: 'none', border: 'none', color: '#555870', fontSize: 12, cursor: 'pointer', textDecoration: 'underline' }}>
               Skip — explore demo
             </button>
           </div>
+        </div>
+
+        <div style={{ textAlign: 'center', marginTop: 20, display: 'flex', justifyContent: 'center', gap: 20 }}>
+          {['🔒 Bank-level security', '🤖 AI powered', '👨‍👩‍👧 Family controls'].map(f => (
+            <span key={f} style={{ fontSize: 11, color: '#555870' }}>{f}</span>
+          ))}
         </div>
       </div>
     </div>
