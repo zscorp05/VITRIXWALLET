@@ -1,23 +1,18 @@
-/** Vitrix wordmark — frontend/public/vitrix_logo_v3.svg */
-export const LOGO_SRC = '/vitrix_logo_v3.svg'
-
 export default function Logo({ width = 160, framed = true, style = {} }) {
-  const img = (
-    <img
-      src={LOGO_SRC}
-      alt="Vitrix — Private Family Finance"
-      width={width}
-      height="auto"
+  const mark = (
+    <span
+      aria-label="Vitrix"
+      className="vitrix-wordmark"
       style={{
-        display: 'block',
-        maxWidth: '100%',
-        height: 'auto',
+        fontSize: Math.max(22, Math.round(width / 6)),
         ...style,
       }}
-    />
+    >
+      VITRIX
+    </span>
   )
 
-  if (!framed) return img
+  if (!framed) return mark
 
-  return <div className="logo-frame">{img}</div>
+  return <div className="logo-frame">{mark}</div>
 }

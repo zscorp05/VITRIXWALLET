@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { LOGO_SRC } from '@/components/Logo'
+import Logo from '@/components/Logo'
 
 export default function Footer() {
   return (
@@ -14,7 +14,7 @@ export default function Footer() {
       gap: 16,
     }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-        <img src={LOGO_SRC} alt="" style={{ width: 72, height: 'auto' }} />
+        <Logo width={78} framed={false} style={{ fontSize: 18 }} />
         <span style={{ color: 'var(--text3)', fontSize: 13 }}>© {new Date().getFullYear()} Vitrix</span>
       </div>
       <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap' }}>

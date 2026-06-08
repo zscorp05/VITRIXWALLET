@@ -1,55 +1,55 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@300;400;500;600;700&display=swap');
 
-/* Palette matched to vitrix_logo_v3.svg */
 :root {
-  --gold-light: #E8C96A;
-  --gold:       #C9A84C;
-  --gold-dark:  #A67C00;
-  --gold-muted: #8A7340;
+  --ink: #101418;
+  --gold-light: #E7CF8A;
+  --gold: #B99A45;
+  --gold-dark: #7C6428;
+  --blue: #7897B8;
+  --sage: #7E9A87;
 
-  --bg:       #080808;
-  --bg2:      #080808;
-  --bg3:      #101010;
-  --card:     #0c0c0c;
-  --border:   rgba(201, 168, 76, 0.14);
-  --border2:  rgba(232, 201, 106, 0.28);
+  --bg: #0A0C0F;
+  --bg2: #0F1318;
+  --bg3: #171D24;
+  --card: #11161C;
+  --border: rgba(231, 207, 138, 0.13);
+  --border2: rgba(120, 151, 184, 0.28);
 
-  --accent:   var(--gold);
-  --accent2:  var(--gold-dark);
-  --accent3:  var(--gold-light);
-  --gold-glow: rgba(201, 168, 76, 0.16);
-  --gradient-gold: linear-gradient(135deg, var(--gold-light) 0%, var(--gold) 50%, var(--gold-dark) 100%);
+  --accent: var(--gold-light);
+  --accent2: var(--blue);
+  --accent3: var(--sage);
+  --gold-glow: rgba(231, 207, 138, 0.11);
+  --gradient-gold: linear-gradient(135deg, #F0DFA9 0%, #B99A45 54%, #7897B8 100%);
 
-  --text:     #F2EBE0;
-  --text2:    #B8A88A;
-  --text3:    #6B6355;
+  --text: #F4F0E8;
+  --text2: #B9B0A3;
+  --text3: #7D8590;
 
-  /* Semantic tones — warm gold family, no teal */
-  --success:  var(--gold-light);
-  --warning:  #D4A84A;
-  --danger:   #B86B5A;
+  --success: var(--sage);
+  --warning: #D7A84B;
+  --danger: #C86D5A;
 
   --font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
   --font-body:    'DM Sans', sans-serif;
 
-  --radius:   14px;
-  --shadow:   0 4px 24px rgba(0, 0, 0, 0.65);
-  --shadow-gold: 0 0 32px rgba(201, 168, 76, 0.14);
+  --radius: 8px;
+  --shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+  --shadow-gold: 0 18px 50px rgba(0, 0, 0, 0.25);
 }
 
 [data-theme="light"] {
-  --bg:       #F5F1E8;
-  --bg2:      #FFFFFF;
-  --bg3:      #EDE6D6;
-  --card:     #FFFFFF;
-  --border:   rgba(166, 124, 0, 0.18);
-  --border2:  rgba(166, 124, 0, 0.32);
-  --text:     #1A1612;
-  --text2:    #5C5348;
-  --text3:    #8A8070;
-  --gold-glow: rgba(201, 168, 76, 0.12);
-  --shadow:   0 4px 24px rgba(26, 22, 18, 0.08);
-  --shadow-gold: 0 0 24px rgba(201, 168, 76, 0.1);
+  --bg: #F5F3EE;
+  --bg2: #FFFFFF;
+  --bg3: #ECE8DE;
+  --card: #FFFFFF;
+  --border: rgba(16, 20, 24, 0.1);
+  --border2: rgba(120, 151, 184, 0.28);
+  --text: #11161C;
+  --text2: #49515A;
+  --text3: #77808B;
+  --gold-glow: rgba(185, 154, 69, 0.12);
+  --shadow: 0 14px 40px rgba(16, 20, 24, 0.08);
+  --shadow-gold: 0 14px 40px rgba(16, 20, 24, 0.08);
 }
 
 * { box-sizing: border-box; }
@@ -110,7 +110,7 @@ html, body {
   background: var(--gradient-gold);
   color: var(--bg);
   border: none;
-  border-radius: 10px;
+  border-radius: 8px;
   padding: 12px 22px;
   font-size: 13px;
   font-weight: 700;
@@ -125,7 +125,7 @@ html, body {
   background: transparent;
   color: var(--gold);
   border: 1px solid var(--border2);
-  border-radius: 10px;
+  border-radius: 8px;
   padding: 10px 18px;
   font-size: 13px;
   font-weight: 600;
@@ -136,18 +136,32 @@ html, body {
 .btn-ghost:hover { background: var(--gold-glow); border-color: var(--gold); }
 
 .logo-frame {
-  background: var(--bg);
-  border-radius: 10px;
-  padding: 10px 14px;
+  background: transparent;
+  border-radius: 8px;
+  padding: 8px 0;
   display: inline-block;
-  border: 1px solid var(--border);
+  border: 0;
+}
+
+.vitrix-wordmark {
+  display: inline-block;
+  font-family: var(--font-display);
+  color: var(--text);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.vitrix-wordmark::first-letter {
+  color: var(--accent);
 }
 
 input, select, textarea {
   width: 100%;
   background: var(--bg3);
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 8px;
   color: var(--text);
   padding: 11px 14px;
   font-size: 14px;
@@ -192,3 +206,112 @@ select option { background: var(--bg3); }
 
 @keyframes pulse  { 0%,100%{opacity:0.3} 50%{opacity:1} }
 @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+
+.auth-page {
+  min-height: 100vh;
+  background:
+    linear-gradient(125deg, rgba(120,151,184,0.1), transparent 38%),
+    linear-gradient(180deg, var(--bg2), var(--bg));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  font-family: var(--font-body);
+}
+
+.auth-panel {
+  width: 100%;
+  max-width: 430px;
+}
+
+.auth-card {
+  background: rgba(17, 22, 28, 0.92);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 28px;
+  box-shadow: var(--shadow);
+}
+
+[data-theme="light"] .auth-card {
+  background: rgba(255, 255, 255, 0.94);
+}
+
+.segmented-control {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 4px;
+  margin-bottom: 26px;
+  gap: 4px;
+}
+
+.segmented-control button,
+.choice-button {
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text3);
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 10px;
+  text-transform: capitalize;
+}
+
+.segmented-control button.active,
+.choice-button.active {
+  background: var(--card);
+  color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--border2);
+}
+
+.choice-button {
+  border: 1px solid var(--border);
+  background: var(--bg3);
+}
+
+.notice-box,
+.error-box {
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.notice-box {
+  background: rgba(126, 154, 135, 0.12);
+  border: 1px solid rgba(126, 154, 135, 0.3);
+  color: #A9C7B1;
+}
+
+.error-box {
+  background: rgba(200, 109, 90, 0.1);
+  border: 1px solid rgba(200, 109, 90, 0.35);
+  color: #E8A090;
+}
+
+@media (max-width: 820px) {
+  .app-shell {
+    flex-direction: column;
+  }
+
+  .app-sidebar {
+    width: 100% !important;
+    height: auto !important;
+    position: relative !important;
+    border-right: 0 !important;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .app-nav {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .app-main {
+    padding: 24px 18px !important;
+  }
+}

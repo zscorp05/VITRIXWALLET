@@ -1,11 +1,12 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 export default function CookieBanner() {
-  const [show, setShow] = useState(() => {
-    if (typeof window === 'undefined') return false
-    return !localStorage.getItem('vitrix_cookies')
-  })
+  const [show, setShow] = useState(false)
+
+  useEffect(() => {
+    setShow(!localStorage.getItem('vitrix_cookies'))
+  }, [])
 
   function accept() {
     localStorage.setItem('vitrix_cookies', 'accepted')
